@@ -34,8 +34,8 @@ def main() -> None:
         new_event = next(event)
         event_list.append(new_event)
     print(f"Built list of 10 events: {event_list}")
-    for event in consume_event(event_list):
-        print(f"Got event fromt list: {event}")
+    for consumed_event in consume_event(event_list):
+        print(f"Got event fromt list: {consumed_event}")
         print(f"Remains in list: {event_list}")
 
 
