@@ -76,7 +76,7 @@ class LogProcessor(DataProcessor):
         return(
                 isinstance(d, dict)
                 and all(isinstance(k, str) for k in d.keys())
-                and all(isinstance(v, str) for v in v.values())
+                and all(isinstance(v, str) for v in d.values())
                 )
     def validate(self, data: Any) -> bool:
         if self._is_log_dict(data):
@@ -100,13 +100,13 @@ class LogProcessor(DataProcessor):
             for entry in data:
                 if not self._is_log_dict(entry):
                     raise ValueError("Invalid data")
-                self._buffer.append(self._format_log(data))
+                self._buffer.append(self._format_log(entry))
 
 
 def main() -> None:
-    print("=== Code Nexus - Data Processor ===\n")
+    print("=== Code Nexus - Data Processor ===")
 
-    print("Testing Numeric Processor...")
+    print("\nTesting Numeric Processor...")
     num_proc = NumericProcessor()
 
     num_ok = 42
@@ -128,7 +128,7 @@ def main() -> None:
         rank, value = num_proc.output()
         print(f" Numeric value {rank}: {value}")
 
-    print("Testing Text Processor...")
+    print("\nTesting Text Processor...")
     text_proc = DataProcessor()
 
     data_ok = ["Hello", "Nexus","Wolrd"]
@@ -141,6 +141,23 @@ def main() -> None:
         rank, value = text_proc.output()
         print(f" Text value {rank}: {value}")
 
+    print("\nTesting Log Processor...")
+    log_proc = LogProcessor()
+
+    log_bad = 42
+    print(f" Trying to validate input {log_bad}: {log_proc.validate(log_bad)}")
+    log_ok = [
+                {"log_level": "NOTICE", "log_message": "Connection to server"},
+                {"log_level": "ERROR", "log_message": "Unauthorized access!!"},
+            ]
+    print(f" Processing data: {log_ok}")
+    log_proc.ingest(log_ok)
+    to_extract = 2
+    print(f" Extracting {to_extract} values...")
+    for t in range(to_extract):
+        level, message = log_proc.output()
+        print (f" Log entry: {level}: {message}")
+    
 
 if __name__ == "__main__":
     main()
