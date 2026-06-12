@@ -14,7 +14,7 @@ def get_player_pos() -> tuple[float, float, float]:
             coord = tuple(float(p.strip())for p in numbers)
             return (coord[0], coord[1], coord[2])
         except ValueError as e:
-            print(f"Error on parameter '{str(e).split("'")[1]}': {e}")
+            print(f'''Error on parameter '{str(e).split("'")[1]}': {e}''')
 
 
 def main() -> None:

@@ -47,7 +47,7 @@ def main() -> None:
     least_qty = 0
 
     for tool, quantity in inventory.items():
-        if most_item is None:
+        if most_item == "":
             most_item = tool
             most_qty = quantity
             least_item = tool
