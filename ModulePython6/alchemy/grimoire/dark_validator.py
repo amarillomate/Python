@@ -7,6 +7,6 @@ def validate_ingredients(ingredients: str) -> str:
     is_true = any(ing in lowed_ingredients for ing in allowed)
     if is_true:
         status = "VALID"
-    else: 
+    else:
         status = "INVALID"
     return f"{ingredients} - {status}"

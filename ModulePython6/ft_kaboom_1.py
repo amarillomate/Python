@@ -7,7 +7,7 @@ def main() -> None:
     print("=== Transmutation 1 ===")
     print("Access to alchemy/grimoire/dark_spellbook.py directly")
     print(
-        alchemy.grimoire.dark_spellbook.dark_spell_record(
+        dark_spell_record(
             "dark matter", "Bats, frogs and slime"
         )
     )

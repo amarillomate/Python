@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-
-
 def healing_potion() -> str:
     return (
             "Healing potion brewed with ’[created earth element]’"
             "and ’[created air element]'"
             )
+
 
 def strength_potion() -> str:
     return (

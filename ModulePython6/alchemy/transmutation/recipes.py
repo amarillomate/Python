@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
-
 import alchemy
 from elements import create_fire
+
 
 def lead_to_gold() -> str:
     air = alchemy.create_air()

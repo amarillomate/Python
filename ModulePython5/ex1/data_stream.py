@@ -18,7 +18,7 @@ class DataProcessor(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def ingest(self, data: Any) -> bool:
+    def ingest(self, data: Any) -> None:
         raise NotImplementedError
 
     def output(self) -> tuple[int, str]:
@@ -35,7 +35,7 @@ class NumericProcessor(DataProcessor):
         if isinstance(data, (int, float)):
             return True
         if isinstance(data, list):
-            return all(isinstance(x, (int,float)) for x in data)
+            return all(isinstance(x, (int, float)) for x in data)
         return False
 
     def ingest(self, data: int | float | list[int | float]) -> None:
@@ -52,7 +52,7 @@ class NumericProcessor(DataProcessor):
 
 
 class TextProcessor(DataProcessor):
-    def  validate(self, data: Any) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, str):
             return True
         if isinstance(data, list):
@@ -74,11 +74,12 @@ class TextProcessor(DataProcessor):
 
 class LogProcessor(DataProcessor):
     def _is_log_dict(self, d: Any) -> bool:
-        return(
+        return (
                 isinstance(d, dict)
                 and all(isinstance(k, str) for k in d.keys())
                 and all(isinstance(v, str) for v in d.values())
                 )
+
     def validate(self, data: Any) -> bool:
         if self._is_log_dict(data):
             return True
@@ -103,6 +104,7 @@ class LogProcessor(DataProcessor):
                     raise ValueError("Invalid data")
                 self._buffer.append(self._format_log(entry))
 
+
 class DataStream:
     def __init__(self) -> None:
         self._processors: list[DataProcessor] = []
@@ -125,7 +127,10 @@ class DataStream:
                     handled = True
                     break
             if not handled:
-                print(f"DataStream error - Can't process element in stream: {elem}")
+                print(
+                    "DataStream error - Can't process element"
+                    f"in stream: {elem}"
+                    )
 
     def print_processors_stats(self) -> None:
         if not self._processors:
@@ -138,7 +143,10 @@ class DataStream:
             name = proc.__class__.__name__
             total = self._total_ingested.get(proc, 0)
             remaining = len(proc._buffer)
-            print(f" {name} total {total} items processed, remaining {remaining} on processor")
+            print(
+                f" {name} total {total} items processed,"
+                f"remaining {remaining} on processor"
+                )
 
 
 def main() -> None:
@@ -155,14 +163,24 @@ def main() -> None:
 
     first_batch = [
         "Hello world",
-        [3.14,
-        -1,
-        2.71],
-        {"log_level": "WARNING", "log_message": "Telnet access! Use ssh instead"},
-        {"log_level": "INFO", "log_message": "User wili is connected"},
+        [
+            3.14,
+            -1,
+            2.71
+            ],
+        {
+            "log_level": "WARNING",
+            "log_message": "Telnet access! Use ssh instead"
+            },
+        {
+            "log_level": "INFO",
+            "log_message": "User wili is connected"
+            },
         42,
-        ["Hi",
-        "five"],
+        [
+            "Hi",
+            "five"
+            ]
     ]
     print("Send first batch of data on stream")
     print(first_batch)
@@ -179,7 +197,10 @@ def main() -> None:
     stream.process_stream(first_batch)
     stream.print_processors_stats()
 
-    print("\nConsume some elements from the data processors: Numeric 3, Text 2, Log 1")
+    print(
+            "\nConsume some elements from the data processors"
+            ": Numeric 3, Text 2, Log 1"
+            )
 
     for _ in range(3):
         num_proc.output()

@@ -17,7 +17,7 @@ def secure_archive(
                 return False, "None content to write"
             with open(filename, "w") as f:
                 f.write(content)
-            return True, "content succesfully written to file"
+            return True, "content successfully written to file"
 
         else:
             return False, "Unknown"

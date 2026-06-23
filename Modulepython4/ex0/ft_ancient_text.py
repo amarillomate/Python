@@ -14,7 +14,7 @@ def main() -> None:
     try:
         file = open(sys.argv[1], "r")
         content = file.read()
-        print(f"Accesing file '{sys.argv[1]}'")
+        print(f"Accessing file '{sys.argv[1]}'")
         print("---")
         print()
         print(f"{content}")
