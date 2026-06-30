@@ -1,0 +1,15 @@
+[tool.poetry]
+package-mode = false
+name = "matrix-loading"
+version = "0.1.0"
+description = "Exercise 1"
+authors = ["andres <andrgarc@42student.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "*"
+pandas = "*"
+matplotlib = "*"
+
+[build-system]
+requires = ["poetry-core"]

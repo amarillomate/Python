@@ -21,11 +21,11 @@ def battle(opponent_a: Opponent, opponent_b: Opponent) -> None:
     creature_a = factory_a.create_base()
     creature_b = factory_b.create_base()
 
-    print("*Battle*")
+    print("\n*Battle*")
     print(
         f"{creature_a.describe()}"
         "\n vs. "
-        f"{creature_b.describe()}"
+        f"\n{creature_b.describe()}"
         "\n now fight!")
 
     for message in strategy_a.act(creature_a):
