@@ -10,6 +10,7 @@ class Creature(ABC):
     def attack(self) -> str:
         raise NotImplementedError
 
+    @abstractmethod
     def describe(self) -> str:
         return f"{self.name} is a {self.type} type Creature"
 
