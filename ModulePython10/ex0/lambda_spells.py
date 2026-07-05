@@ -3,19 +3,19 @@
 from typing import Any
 
 
-def artifactsorter(artifacts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def artifact_sorter(artifacts: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return sorted(artifacts, key=lambda artifact: artifact["power"], reverse=True)
 
 
-def powerfilter(mages: list[dict[str, Any]], minpower: int) -> list[dict[str, Any]]:
-    return list(filter(lambda mage: mage["power"] >= minpower, mages))
+def power_filter(mages: list[dict[str, Any]], min_power: int) -> list[dict[str, Any]]:
+    return list(filter(lambda mage: mage["power"] >= min_power, mages))
 
 
-def spelltransformer(spells: list[str]) -> list[str]:
+def spell_transformer(spells: list[str]) -> list[str]:
     return list(map(lambda spell: f"*{spell}*", spells))
 
 
-def magestats(mages: list[dict[str, Any]]) -> dict[str, float]:
+def mage_stats(mages: list[dict[str, Any]]) -> dict[str, float]:
     return {
             "maxpower": max(map(lambda mage: mage["power"], mages)),
             "minpower": min(map(lambda mage: mage["power"], mages)),
@@ -42,16 +42,16 @@ def main() -> None:
     spells = ["fireball", "heal", "shield"]
 
     print("Testing artifacts sorter...")
-    print(artifactsorter(artifacts))
+    print(artifact_sorter(artifacts))
     print()
     print("Testing spell transformer...")
-    print(spelltransformer(spells))
+    print(spell_transformer(spells))
     print()
     print("Testing power filter...")
-    print(powerfilter(mages, 76))
+    print(power_filter(mages, 76))
     print()
     print("Testing mage stats...")
-    print(magestats(mages))
+    print(mage_stats(mages))
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 from collections.abc import Callable
 
 
-def magecounter() -> Callable[[], int]:
+def mage_counter() -> Callable[[], int]:
     count = 0
     def counter() -> int:
         nonlocal count
@@ -12,7 +12,7 @@ def magecounter() -> Callable[[], int]:
     return counter
 
 
-def spellaccumulator(initialpower: int) -> Callable[[int], int]:
+def spell_accumulator(initialpower: int) -> Callable[[int], int]:
     total = initialpower
     def accumulate(amount: int) -> int:
         nonlocal total
@@ -21,13 +21,13 @@ def spellaccumulator(initialpower: int) -> Callable[[int], int]:
     return accumulate
 
 
-def enchantmentfactory(enchantmenttype: str) -> Callable[[str], str]:
+def enchantment_factory(enchantmenttype: str) -> Callable[[str], str]:
     def enchant(itemname: str) -> str:
         return f"{enchantmenttype}{itemname}"
     return enchant
 
 
-def memoryvault() -> dict[str, Callable[..., str | None]]:
+def memory_vault() -> dict[str, Callable[..., str | None]]:
     storage: dict[str, str] = {}
 
     def store(key: str, value: str) -> None:
@@ -40,8 +40,8 @@ def memoryvault() -> dict[str, Callable[..., str | None]]:
 
 
 def main() -> None:
-    counter_a = magecounter()
-    counter_b = magecounter()
+    counter_a = mage_counter()
+    counter_b = mage_counter()
 
     print("Testing magecounter...")
     print("counter a call", counter_a())
@@ -49,18 +49,18 @@ def main() -> None:
     print("counter b call", counter_b())
 
     print("Testing spellaccumulator...")
-    base100 = spellaccumulator(100)
+    base100 = spell_accumulator(100)
     print("Base100, add20", base100(20))
     print("Base100, add20", base100(30))
 
     print("Testing enchantmentfactory...")
-    flaming = enchantmentfactory("Flaming")
-    frozen = enchantmentfactory("Frozen")
+    flaming = enchantment_factory("Flaming")
+    frozen = enchantment_factory("Frozen")
     print(flaming("Sword"))
     print(frozen("Shield"))
 
     print("Testing memoryvault...")
-    vault = memoryvault()
+    vault = memory_vault()
     vault["store"]("secret", "42")
     print("Store secret", vault["recall"]("secret"))
     print("Recall unknown", vault["recall"]("unknown"))
